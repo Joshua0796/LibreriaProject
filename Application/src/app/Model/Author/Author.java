@@ -13,14 +13,14 @@ public class Author {
     private static int idAuthor = 0;
     private String name;
 
-    public Author(int id, String name) {
-        this.id = idAuthor++;
+    public Author( String name) {
+        this.idAuthor++;
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "ID: "+ id +", Autor: " + name;
+        return "ID: "+ this.idAuthor +", Autor: " + name;
     }
 
     Scanner sc = new Scanner(System.in);
