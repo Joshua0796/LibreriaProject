@@ -1,32 +1,44 @@
 package app.Model.Book;
 
-import java.sql.Date;
+import java.text.ParseException;
+//import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Date;
 
 /**
  * Book
  */
 public class Book {
 
-    private int id;
-    private static int idBook = 0;
-    private String name;
-    private Date publication_date;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    int bookId;
+    String name;
+    String authorName;
+    Date date1;
 
-    public Book(int id, String name, Date date)
-    {
-        this.id = idBook++;
+    public Book(String name, String author, String date) throws ParseException {
+        this.bookId = count.incrementAndGet();
         this.name = name;
-        this.publication_date = date;
+        this.authorName = author;
+        date1 = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        this.date1 = sdf.parse(date);
     }
 
-    @Override
-    public String toString(){
-        return "ID: "+ id +", Nombre: "+ name + ", Fecha de publicacion: " + publication_date;
+    public Book(String bookName) {
+        this.name = bookName;
+	}
+
+	@Override
+    public String toString() {
+        return "ID: " + bookId + ", Nombre: " + name + ", Autor: " + authorName + ", Fecha de publicacion: " + date1;
     }
-    public void listBook() 
-    {
+
+    public void listBook() {
         List<String> lsbook = new ArrayList<>();
         lsbook.add("La milagrosa");
         lsbook.add("Juan la maxima");

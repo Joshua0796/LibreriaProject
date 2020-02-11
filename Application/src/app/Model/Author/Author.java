@@ -1,26 +1,30 @@
+
 package app.Model.Author;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /********
  * Autor
  ********/
+/*
 public class Author {
 
-    private int id;
-    private static int idAuthor = 0;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private final int authorId;
     private String name;
 
-    public Author( String name) {
-        this.idAuthor++;
+    public Author(String name) {
+        
+        authorId = count.incrementAndGet();
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "ID: "+ this.idAuthor +", Autor: " + name;
+        return "ID: "+ this.authorId +", Autor: " + name;
     }
 
     Scanner sc = new Scanner(System.in);
@@ -33,6 +37,5 @@ public class Author {
         System.out.println(lsauthor);
     }
 
-
-
 }
+*/

@@ -1,44 +1,61 @@
 package app.Model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Date;
 
 import app.Model.Author.*;
+import app.Model.Book.*;
 
 /****************
  * StartMenu
  ***************/
 public class StartMenu {
     Scanner sc;
+    Scanner scString;
     boolean salir;
     int num;
     int num2;
+    String str;
+    String bookName;
+    String authorName;
+    String publicationDate;
     final String errorNumero;
-    
-    AuthorOperations authorOperations;
-    //Author au;
+    // Author au, au1, au2;
+    Book bo, bo1, bo2;
+    // Author au1;
+    // Author au2;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    public StartMenu() {
+    // AuthorOperations authorOperations;
+    BookOperations bookOperations;
+    // Author au;
+
+    public StartMenu() throws ParseException {
         sc = new Scanner(System.in);
+        scString = new Scanner(System.in);
         salir = false;
         errorNumero = "Debes de insertar un numero.";
-        authorOperations = new AuthorOperations();
+        bookOperations = new BookOperations();
+        /************ PARA AUTOR *****************/
+        /*
+         * authorOperations = new AuthorOperations(); au = new Author("Manuel"); au1 =
+         * new Author("Francisco"); au2 = new Author("Javier"); /
+         *******************************************/
+
+        bo = new Book("Las Cenizas", "Manuel", "16/02/2019");
+        bo1 = new Book("Las Tinieblas", "Pedro", "16/01/1996");
+        bo2 = new Book("Las Basuras", "Ramon", "23/03/2002");
+        bookOperations.addBook(bo);
+        bookOperations.addBook(bo1);
+        bookOperations.addBook(bo2);
+
     }
 
     public void startMenu() {
-
-        /*
-        Author au = new Author(1, "Manuel");
-        Author au1 = new Author(2, "Francisco");
-        Author au2 = new Author(3, "Javier");
-        */
-        /*
-         * List<Author> lsauthor = new ArrayList<Author>(); lsauthor.add(au);
-         * lsauthor.add(au1); lsauthor.add(au2);
-         */
-        /*
-         * for (Author author : lsauthor) { System.out.println(author); }
-         */
+        // data();
 
         // TODO: Id que se aumente solo
         while (!salir) {
@@ -53,17 +70,18 @@ public class StartMenu {
                 num = sc.nextInt();
                 switch (num) {
                 case 1:
-                authorOperations.getAllAuthors();    
-                //toString();
-                    //listAuthor();
-                    //Author author = new Author(1, "");
+                    formShow();
+                    // authorOperations.getAllAuthors();
+                    // toString();
+                    // listAuthor();
+                    // Author author = new Author(1, "");
                     /// Todo: llamar aqui metodo addauthor
                     break;
                 case 2:
                     formCreate();
                     break;
                 case 3:
-                    formUpdate();
+                    // formUpdate();
                     break;
                 case 4:
                     formDelete();
@@ -82,6 +100,46 @@ public class StartMenu {
         }
     }
 
+    /*****************
+     * VISUALIZACION
+     ****************/
+    public void formShow() {
+        try {
+            System.out.println("Selecciona que deseas Actualizar: ");
+            System.out.println("1. Visualizar autor");
+            System.out.println("2. Visualizar libro");
+            System.out.println("3. Visualizar todo");
+            System.out.println("4. Atras");
+            num2 = sc.nextInt();
+
+            switch (num2) {
+            case 1:
+                System.out.println("No funciona, favor probar con otra opcion.\n");
+                // formShow();
+                // authorOperations.getAllAuthors();
+                break;
+            case 2:
+                System.out.println("Ingrese el libro que desea buscar: ");
+                String str = scString.nextLine();
+                bookOperations.getBook(str);
+                // System.out.println("KLK");
+                break;
+            case 3:
+                bookOperations.getAllBooks();
+                break;
+            case 4:
+                startMenu();
+            default:
+                System.out.println("Solo permite las opciones del 1 al 3.\n");
+                break;
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println(errorNumero);
+            // sc.next();
+        }
+    }
+
     /***************************
      * FORMULARIO PARA CREACION
      ***************************/
@@ -91,28 +149,29 @@ public class StartMenu {
             System.out.println("Selecciona que deseas crear: ");
             System.out.println("1. Crear Autor");
             System.out.println("2. Crear libro");
-            System.out.println("3. Salir");
+            System.out.println("3. Atras");
             num2 = sc.nextInt();
             switch (num2) {
             case 1:
-                Author au = new Author("Manuel");
-                Author au1 = new Author("Francisco");
-                Author au2 = new Author("Javier");
-                authorOperations.addAuthor(au);
-                authorOperations.addAuthor(au1);
-                authorOperations.addAuthor(au2);
-                authorOperations.getAllAuthors();
                 System.out.println("funciona");
                 break;
             case 2:
-                System.out.println("KLK");
+                System.out.println("Ingrese el nombre del libro: ");
+                bookName = scString.nextLine();
+                System.out.println("\nIngrese el nombre del autor: ");
+                authorName = scString.nextLine();
+                System.out.println("\nIngrese la fecha de publicacion en formato dd-MM-yyyy: ");
+                publicationDate = scString.nextLine();
+                bookOperations.addBook(new Book(bookName, authorName, publicationDate));
                 break;
+            case 3:
+                startMenu();
             default:
                 System.out.println("Solo permite las opciones del 1 al 3.");
                 break;
             }
 
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | ParseException e) {
             System.out.println(errorNumero);
             sc.next();
         }
@@ -128,15 +187,19 @@ public class StartMenu {
             System.out.println("Selecciona que deseas borrar: ");
             System.out.println("1. Borrar Autor");
             System.out.println("2. Borrar libro");
-            System.out.println("3. Salir");
+            System.out.println("3. Atras");
             num2 = sc.nextInt();
             switch (num2) {
             case 1:
                 System.out.println("funciona");
                 break;
             case 2:
-                System.out.println("KLK");
+                System.out.println("Ingrese el nombre del libro: ");
+                bookName = scString.nextLine();
+                bookOperations.deleteBook(new Book(bookName));
                 break;
+            case 3:
+                startMenu();
             default:
                 System.out.println("Solo permite las opciones del 1 al 3.");
                 break;
@@ -152,31 +215,32 @@ public class StartMenu {
     /***************************
      * FORMULARIO PARA ACTUALIZAR
      ***************************/
-
-    public void formUpdate() {
-        try {
-            System.out.println("Selecciona que deseas Actualizar: ");
-            System.out.println("1. Actualizar Autor");
-            System.out.println("2. Actualizar libro");
-            System.out.println("3. Salir");
-            num2 = sc.nextInt();
-            switch (num2) {
-            case 1:
-                System.out.println("funciona");
-                break;
-            case 2:
-                System.out.println("KLK");
-                break;
-            default:
-                System.out.println("Solo permite las opciones del 1 al 3.");
-                break;
-            }
-
-        } catch (InputMismatchException e) {
-            System.out.println(errorNumero);
-            sc.next();
-        }
-
-    }
+    /*
+     * public void formUpdate() { try {
+     * System.out.println("Selecciona que deseas Actualizar: ");
+     * System.out.println("1. Actualizar Autor");
+     * System.out.println("2. Actualizar libro"); System.out.println("3. Atras");
+     * num2 = sc.nextInt(); switch (num2) { case 1: System.out.println("funciona");
+     * break; case 2: System.out.println("KLK"); break; case 3: startMenu();
+     * default: System.out.println("Solo permite las opciones del 1 al 3."); break;
+     * }
+     * 
+     * } catch (InputMismatchException e) { System.out.println(errorNumero);
+     * sc.next(); }
+     * 
+     * }
+     */
+    /*
+     * public void data() {
+     * 
+     * 
+     * authorOperations.addAuthor(au); authorOperations.addAuthor(au1);
+     * authorOperations.addAuthor(au2);
+     * 
+     * bookOperations.addBook(bo); bookOperations.addBook(bo1);
+     * bookOperations.addBook(bo2);
+     * 
+     * }
+     */
 
 }

@@ -3,13 +3,11 @@ package app.Model.Author;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/*
 public class AuthorOperations {
      Scanner sc = new Scanner(System.in);
      private List<Author> authors;
 
-     // AuthorOperations authorOperations = new AuthorOperations();
-     // authorOperations = authors;
      public AuthorOperations() {
           authors = new ArrayList<Author>();
      }
@@ -29,7 +27,7 @@ public class AuthorOperations {
 
      }
      
-
+*/
      /*
       * Author au = new Author(1, "Manuel"); Author au1 = new Author(2, "Francisco");
       * Author au2 = new Author(3, "Javier");
@@ -46,11 +44,11 @@ public class AuthorOperations {
      // editAuthor()
      // getAuthor(int id)
      // getAllAuthors()
-
+/*
      public void searchAuthor(int id) {
 
-          ArrayList<String> author = new ArrayList<>();
-          System.out.println(author.get(id));
+          //authors;
+          System.out.println(authors.get(id));
      }
 
      public void createAuthor() {
@@ -93,3 +91,4 @@ public class AuthorOperations {
      }
 
 }
+*/
