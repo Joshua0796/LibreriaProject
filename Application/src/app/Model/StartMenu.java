@@ -24,15 +24,14 @@ public class StartMenu {
     String publicationDate;
     final String errorNumero;
     // Author au, au1, au2;
-    Book bo, bo1, bo2;
-    // Author au1;
-    // Author au2;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
+    Book bo, bo1, bo2, book3;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     // AuthorOperations authorOperations;
     BookOperations bookOperations;
-    // Author au;
 
+    /*******************************
+     * Contructor del menu Principal
+     ********************************/
     public StartMenu() throws ParseException {
         sc = new Scanner(System.in);
         scString = new Scanner(System.in);
@@ -54,10 +53,11 @@ public class StartMenu {
 
     }
 
+    /******************
+     * Menu Principal
+     ******************/
     public void startMenu() {
-        // data();
 
-        // TODO: Id que se aumente solo
         while (!salir) {
             System.out.println("Seleccione accion a seguir: ");
             System.out.println("1. Visualizar");
@@ -71,11 +71,6 @@ public class StartMenu {
                 switch (num) {
                 case 1:
                     formShow();
-                    // authorOperations.getAllAuthors();
-                    // toString();
-                    // listAuthor();
-                    // Author author = new Author(1, "");
-                    /// Todo: llamar aqui metodo addauthor
                     break;
                 case 2:
                     formCreate();
@@ -100,9 +95,9 @@ public class StartMenu {
         }
     }
 
-    /*****************
-     * VISUALIZACION
-     ****************/
+    /**********************
+     * VISUALIZACION MENU
+     **********************/
     public void formShow() {
         try {
             System.out.println("Selecciona que deseas Actualizar: ");
@@ -115,14 +110,11 @@ public class StartMenu {
             switch (num2) {
             case 1:
                 System.out.println("No funciona, favor probar con otra opcion.\n");
-                // formShow();
-                // authorOperations.getAllAuthors();
                 break;
             case 2:
                 System.out.println("Ingrese el libro que desea buscar: ");
                 String str = scString.nextLine();
                 bookOperations.getBook(str);
-                // System.out.println("KLK");
                 break;
             case 3:
                 bookOperations.getAllBooks();
@@ -160,7 +152,7 @@ public class StartMenu {
                 bookName = scString.nextLine();
                 System.out.println("\nIngrese el nombre del autor: ");
                 authorName = scString.nextLine();
-                System.out.println("\nIngrese la fecha de publicacion en formato dd-MM-yyyy: ");
+                System.out.println("\nIngrese la fecha de publicacion en formato dia/mes/año: ");
                 publicationDate = scString.nextLine();
                 bookOperations.addBook(new Book(bookName, authorName, publicationDate));
                 break;
@@ -173,7 +165,7 @@ public class StartMenu {
 
         } catch (InputMismatchException | ParseException e) {
             System.out.println(errorNumero);
-            sc.next();
+            return;
         }
 
     }
@@ -196,7 +188,10 @@ public class StartMenu {
             case 2:
                 System.out.println("Ingrese el nombre del libro: ");
                 bookName = scString.nextLine();
-                bookOperations.deleteBook(new Book(bookName));
+                Book booky = new Book(bookName);
+                bookOperations.deleteBook(booky);
+                System.out.println("\n");
+                bookOperations.getAllBooks();
                 break;
             case 3:
                 startMenu();
@@ -207,7 +202,7 @@ public class StartMenu {
 
         } catch (InputMismatchException e) {
             System.out.println(errorNumero);
-            sc.next();
+            return;
         }
 
     }
@@ -227,18 +222,6 @@ public class StartMenu {
      * 
      * } catch (InputMismatchException e) { System.out.println(errorNumero);
      * sc.next(); }
-     * 
-     * }
-     */
-    /*
-     * public void data() {
-     * 
-     * 
-     * authorOperations.addAuthor(au); authorOperations.addAuthor(au1);
-     * authorOperations.addAuthor(au2);
-     * 
-     * bookOperations.addBook(bo); bookOperations.addBook(bo1);
-     * bookOperations.addBook(bo2);
      * 
      * }
      */

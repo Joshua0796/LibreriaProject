@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Date;
 
-/**
+/*******
  * Book
- */
+ *******/
 public class Book {
 
     private static final AtomicInteger count = new AtomicInteger(0);
@@ -38,11 +38,4 @@ public class Book {
         return "ID: " + bookId + ", Nombre: " + name + ", Autor: " + authorName + ", Fecha de publicacion: " + date1;
     }
 
-    public void listBook() {
-        List<String> lsbook = new ArrayList<>();
-        lsbook.add("La milagrosa");
-        lsbook.add("Juan la maxima");
-        lsbook.add("El milagro");
-        System.out.println(lsbook);
-    }
 }
